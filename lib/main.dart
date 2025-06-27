@@ -110,17 +110,53 @@ class PortfolioHomePage extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    // Responsive avatar size
+    double screenWidth = MediaQuery.of(context).size.width;
+    double avatarSize;
+    if (screenWidth > 900) {
+      avatarSize = 220;
+    } else if (screenWidth > 600) {
+      avatarSize = 160;
+    } else {
+      avatarSize = 110;
+    }
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const CircleAvatar(
-          radius: 200,
-          backgroundImage: AssetImage('assets/profile.jpg'),
-          // backgroundColor: Colors.blue,
+        Center(
+          child: Container(
+            width: avatarSize,
+            height: avatarSize,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [Colors.blueAccent, Colors.blue.shade50],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.blue.withOpacity(0.2),
+                  blurRadius: 32,
+                  offset: Offset(0, 16),
+                ),
+              ],
+              border: Border.all(
+                color: Colors.white,
+                width: 6,
+              ),
+            ),
+            child: CircleAvatar(
+              radius: avatarSize / 2,
+              backgroundImage: const AssetImage('assets/profile.jpg'),
+              backgroundColor: Colors.transparent,
+            ),
+          ),
         ),
         const SizedBox(height: 24),
         Text(
           'Alzubair Mohammed',
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Colors.blue.shade900,
@@ -129,6 +165,7 @@ class PortfolioHomePage extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           'Fullstack Web & Mobile Developer',
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Colors.blueGrey.shade700,
               ),
